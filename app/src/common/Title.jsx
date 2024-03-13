@@ -22,10 +22,14 @@ export default ({ text, color }) => {
           style={{
             textAlign:'center',
             color: color,
-            fontSize: 40,
+            fontSize: 50,
             paddingVertical,
             fontFamily: "LeckerliOne_400Regular",
-            marginBottom: 30
+            marginBottom: 30,
+            textShadowColor: 'rgba(0, 0, 0, 0.5)', // Shadow color
+            textShadowOffset: { width: 2, height: 2 }, // Shadow offset
+            textShadowRadius: 5, // Shadow radius
+
           }}
         >
           {text}

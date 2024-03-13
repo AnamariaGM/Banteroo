@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useEffect, useState } from "react";
 import {
   FlatList,
   SafeAreaView,
@@ -11,6 +11,7 @@ import {
 import Empty from "../common/Empty";
 import Thumbnail from "../common/Thumbnail";
 import useGlobal from "../core/global";
+import Cell from "../common/Cell";
 
 function SearchButton({user}) {
   // Add tick if user is already connected
@@ -74,16 +75,7 @@ function SearchButton({user}) {
 
 function SearchRow({ user }) {
   return (
-    <View
-      style={{
-        paddingHorizontal: 20,
-        flexDirection: "row",
-        alignItems: "center",
-        borderBottomWidth: 1,
-        borderColor: "#f0f0f0",
-        height: 106,
-      }}
-    >
+   <Cell>
       <Thumbnail url={user.thumbnail} size={76} />
       <View
         style={{
@@ -109,11 +101,11 @@ function SearchRow({ user }) {
         </Text>
       </View>
       <SearchButton user={user} />
-    </View>
+      </Cell>
   );
 }
 
-function SearchScreen() {
+function SearchScreen({navigation}) {
   const [query, setQuery] = useState("");
 
   const searchList = useGlobal(state => state.searchList)
@@ -121,35 +113,14 @@ function SearchScreen() {
 
   useEffect(()=>{
     searchUsers(query)
-  },[query])
+  },[query]);
 
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerBackTitleVisible: false, // Hide the back button text
+    });
+  }, [navigation]);
 
-//   const searchList = [
-//     {
-//       thumbnail: null,
-//       name: "S",
-//       username: "s",
-//       status: "connected"
-//     },
-//     {
-//       thumbnail: null,
-//       name: "A",
-//       username: "a",
-//       status: "pending-me"
-//     },
-//     {
-//       thumbnail: null,
-//       name: "C",
-//       username: "c",
-//       status: "pending-them"
-//     },
-//     {
-//       thumbnail: null,
-//       name: "D",
-//       username: "d",
-//       status: "no-connection"
-//     },
-//   ];
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View

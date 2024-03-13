@@ -9,13 +9,14 @@ import SearchScreen from "./src/screens/SearchScreen";
 import MessagesScreen from "./src/screens/MessagesScreen";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { LinearGradient } from "expo-linear-gradient"; 
 import './src/core/fontawesome';
 import useGlobal from "./src/core/global";
 
 const LightTheme = {
   ...DefaultTheme,
   colors: {
-    ...DefaultTheme.colors, background: 'pink'
+    ...DefaultTheme.colors, background: 'transparent'
   }
 }
 
@@ -25,17 +26,11 @@ function App() {
   const [showSplash, setShowSplash] = useState(true); // State to control showing splash screen
   // Global state initialization
   const initialized = useGlobal(state => state.initialized);
-
   const authenticated = useGlobal(state => state.authenticated);
-
   const init = useGlobal(state => state.init);
-
-
 
   useEffect(() => {
     init(); // Initialize global state
-
-
 
     // Set a timeout to hide splash screen after 1000 milliseconds (1 second)
     const timer = setTimeout(() => {
@@ -48,38 +43,42 @@ function App() {
 
   // Render splash screen if showSplash is true, otherwise render other screens based on initialized and authenticated states
   return (
-    <NavigationContainer theme={LightTheme}>
+    <LinearGradient // Add LinearGradient as the outer wrapper
+    colors={["#6a9cfd", "#ffb8d0"]}
+    start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      style={styles.container}
+    >
       <StatusBar barStyle="dark-content" />
-      <Stack.Navigator>
-        {showSplash ? (
-          <Stack.Screen name="Splash" component={SplashScreen} />
-        ) : (
-          <>
-            {!initialized || !authenticated ? (
-              <>
-                <Stack.Screen name="SignIn" component={SignInScreen} />
-                <Stack.Screen name="SignUp" component={SignUpScreen} />
-              </>
-            ) : (
-              <>
-                <Stack.Screen name="Home" component={HomeScreen} />
-                <Stack.Screen name="Search" component={SearchScreen} />
-                <Stack.Screen name="Messages" component={MessagesScreen} />
-              </>
-            )}
-          </>
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+      <NavigationContainer theme={LightTheme}>
+        <Stack.Navigator>
+          {showSplash ? (
+            <Stack.Screen name="Splash" component={SplashScreen} />
+          ) : (
+            <>
+              {!initialized || !authenticated ? (
+                <>
+                  <Stack.Screen name="SignIn" component={SignInScreen} />
+                  <Stack.Screen name="SignUp" component={SignUpScreen} />
+                </>
+              ) : (
+                <>
+                  <Stack.Screen name="Home" component={HomeScreen} />
+                  <Stack.Screen name="Search" component={SearchScreen} />
+                  <Stack.Screen name="Messages" component={MessagesScreen} />
+                </>
+              )}
+            </>
+          )}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
   },
 });
 

@@ -1,11 +1,13 @@
+
 import {
   Keyboard,
   KeyboardAvoidingView,
   SafeAreaView,
   Text,
   TouchableWithoutFeedback,
-  View,
+  View,StyleSheet
 } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import { useLayoutEffect, useState } from "react";
 import Title from "../common/Title";
 import Input from "../common/Input";
@@ -83,64 +85,71 @@ function SignInScreen({ navigation }) {
   }
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-      }}
+    <LinearGradient
+      colors={["#6a9cfd", "#ffb8d0"]}
+      style={styles.container}
     >
-      <KeyboardAvoidingView behavior="height" style={{ flex: 1 }}>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View
-            style={{
-              flex: 1,
-              justifyContent: "center",
-              paddingHorizontal: 20,
-            }}
-          >
-            <Title text="RealTimeChat" color="white" />
+      <SafeAreaView style={styles.container}>
+        <KeyboardAvoidingView behavior="height" style={styles.container}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.contentContainer}>
+              <Title text="Banteroo" color="white" />
 
-            <Input
-              title="Username"
-              value={username}
-              error={usernameError}
-              setValue={setUsername}
-              setError={setUsernameError}
-            />
+              <Input
+                title="Username"
+                value={username}
+                error={usernameError}
+                setValue={setUsername}
+                setError={setUsernameError}
+              />
 
-            <Input
-              title="Password"
-              value={password}
-              error={passwordError}
-              setValue={setPassword}
-              setError={setPasswordError}
-              secureTextEntry={true}
-            />
+              <Input
+                title="Password"
+                value={password}
+                error={passwordError}
+                setValue={setPassword}
+                setError={setPasswordError}
+                secureTextEntry={true}
+              />
 
-            <Button title="Sign In" onPress={onSignIn}></Button>
+              <Button title="Sign In" onPress={onSignIn}></Button>
 
-            <Text
-              style={{
-                textAlign: "center",
-                marginTop: 40,
-              }}
-            >
-              Don't have an account?{" "}
-              <Text
-                onPress={() => {
-                  navigation.navigate("SignUp");
-                }}
-                style={{
-                  color: "blue",
-                }}
-              >
-                Sign Up
+              <Text style={styles.signUpText}>
+                Don't have an account?{" "}
+                <Text
+                  onPress={() => {
+                    navigation.navigate("SignUp");
+                  }}
+                  style={styles.signUpLink}
+                >
+                  Sign Up
+                </Text>
               </Text>
-            </Text>
-          </View>
-        </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+            </View>
+          </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    </LinearGradient>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  contentContainer: {
+    flex: 1,
+    justifyContent: "center",
+    paddingHorizontal: 20,
+  },
+  signUpText: {
+    textAlign: "center",
+    marginTop: 40,
+    color: "white",
+  },
+  signUpLink: {
+    color: "blue",
+  },
+});
 
 export default SignInScreen;

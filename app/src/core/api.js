@@ -1,17 +1,19 @@
-import axios from "axios";
-import { Platform } from "react-native";
+// api.js
 
-// export const ADDRESS = Platform.OS === 'ios'
-// ? 'https://8e1e-2a02-c7c-8506-8300-fc7-85cb-764b-5ea6.ngrok-free.app:8000'
-// : '10.0.2.2:8000'
-export const DOMAIN ="668b-2a02-c7c-8506-8300-bde4-1de5-acb4-c89b.ngrok-free.app"
-export const ADDRESS = "668b-2a02-c7c-8506-8300-bde4-1de5-acb4-c89b.ngrok-free.app:8000"
+import axios from "axios";
+import { customBaseUrl, customBaseDomain } from '../../config';
+
+const defaultBaseUrl = "http://127.0.0.1:8000"; // Default base URL
+const defaultBaseDomain = '127.0.0.1';
+
+export const DOMAIN = customBaseDomain || defaultBaseDomain;
+export const ADDRESS = `${DOMAIN}:8000`;
+
+const baseUrl = customBaseUrl || defaultBaseUrl;
 
 const api = axios.create({
-  // baseURL:'http://'+ ADDRESS,
-  baseURL: "https://668b-2a02-c7c-8506-8300-bde4-1de5-acb4-c89b.ngrok-free.app",
-
-  timeout:1000,
+  baseURL: baseUrl,
+  timeout: 1000,
   headers: {
     "Content-Type": "application/json",
   }

@@ -9,8 +9,16 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+import os
 
 from pathlib import Path
+
+from config import custom_base_url, custom_base_domain
+
+DEFAULT_BASE_URL = "http://127.0.0.1:8000"  # Default base URL
+BASE_URL = custom_base_url or DEFAULT_BASE_URL
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,16 +33,10 @@ SECRET_KEY = 'django-insecure-7k*^6g4t40d+q&vcel)(qpn_=r_c6xh8^uqysl7k%4&wu(sm5@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '668b-2a02-c7c-8506-8300-bde4-1de5-acb4-c89b.ngrok-free.app']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', custom_base_domain]
 
 
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:8081',
-    'http://192.168.0.48:8081',
-    'https://668b-2a02-c7c-8506-8300-bde4-1de5-acb4-c89b.ngrok-free.app',
-    'ws://668b-2a02-c7c-8506-8300-bde4-1de5-acb4-c89b.ngrok-free.app',
-    
-    # 'exp://192.160.48:8081'
+CORS_ORIGIN_WHITELIST = [BASE_URL, 
     # Add other origins as needed
 ]
 
@@ -47,18 +49,13 @@ REST_FRAMEWORK = {'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )}
 AUTH_USER_MODEL='chat.User'
-CSRF_TRUSTED_ORIGINS = ['https://668b-2a02-c7c-8506-8300-bde4-1de5-acb4-c89b.ngrok-free.app',
-                        'ws://668b-2a02-c7c-8506-8300-bde4-1de5-acb4-c89b.ngrok-free.app']
+CSRF_TRUSTED_ORIGINS = [BASE_URL ]
 
 
 
 CORS_ORIGIN_ALLOW_ALL = True 
 CORS_ALLOW_ALL_ORIGINS= True
-CORS_ALLOWED_ORIGINS = [  'http://localhost:8081',
-    'http://192.168.0.48:8081',
-    'http://192.168.0.2:8081',
-    'https://668b-2a02-c7c-8506-8300-bde4-1de5-acb4-c89b.ngrok-free.app',
-    'ws://8e1e-2a02-c7c-8506-8300-fc7-85cb-764b-5ea6.ngrok-free.app',
+CORS_ALLOWED_ORIGINS = [  BASE_URL 
 
     ]
 

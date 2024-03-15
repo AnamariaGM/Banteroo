@@ -53,17 +53,17 @@ function formatTime(date) {
     }
     // Days
     if (s < 60 * 60 * 24 * 7) {
-      const h = Math.floor(s / (60 * 60 * 24));
+      const d = Math.floor(s / (60 * 60 * 24));
       return `${d}d ago`;
     }
     // Weeks
     if (s < 60 * 60 * 24 * 7 * 4) {
-      const h = Math.floor(s / (60 * 60 * 24 * 7));
+      const w = Math.floor(s / (60 * 60 * 24 * 7));
       return `${w}w ago`;
     }
     // Years
     if (s < 60 * 60 * 24 * 7 * 4 * 12) {
-      const h = Math.floor(s / (60 * 60 * 24 * 365));
+      const y = Math.floor(s / (60 * 60 * 24 * 365));
       return `${y}y ago`;
     }
   }
